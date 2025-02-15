@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FakeShield</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -40,17 +41,46 @@
         <div class="upload-section">
             <div class="upload-box">
                 <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-                <div class="upload-area">
+                <div class="upload-area" onclick="document.getElementById('imageUpload').click();">
                     <span>Drag & Drop or Click to Upload</span>
                 </div>
-                <button class="detect-btn">Analyze Image</button>
+                <button class="detect-btn" onclick="uploadImage()">Analyze Image</button>
             </div>
         </div>
+        
+        <p id="result"></p>
+        
+        <script>
+            function uploadImage() {
+                let fileInput = document.getElementById("imageUpload").files[0];
+        
+                if (!fileInput) {
+                    alert("Please select an image first!");
+                    return;
+                }
+        
+                let formData = new FormData();
+                formData.append("image", fileInput);
+        
+                fetch("/predict", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let resultText = data.prediction == 1 ? "Fake Image 🛑" : "Real Image ✅";
+                    document.getElementById("result").innerText = resultText;
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        </script>
+        
 
         <div class="gif-space">
             <div class="gif-container">
                 <!-- Replace the src with your GIF path -->
-                <img src="scanner.gif" alt="AI Analysis Animation">
+                <img src="{{ url_for('static', filename='images/scanner.gif') }}" alt="AI Analysis Animation">
+
             </div>
         </div>
     </section>
@@ -298,7 +328,8 @@
                     <div class="slider">
                         <div class="slide">
                             <div class="comparison-container">
-                                <img src="Financial_Projection.png" alt="Original" class="comparison-image">
+                                <img src="{{ url_for('static', filename='images/Financial_Projection.png') }}" alt="Original" class="comparison-image">
+
                                 <div class="comparison-separator">
                                     <div class="separator-line"></div>
                                     <div class="separator-handle">
