@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepShield</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- 🌟 Navbar -->
+    <nav>
+        <div class="logo">DeepShield</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button id="signInBtn">Sign In</button>
+            <button id="loginBtn">Login</button>
+        </div>
+    </nav>
+
+    <!-- 🎯 Hero Section -->
+    <!-- <header id="home">
+        <h1>Spot the Fake with AI!</h1>
+        <p>Upload an image and let our AI detect whether it’s real or fake.</p>
+        <button class="upload-btn">Upload Image</button>
+    </header> -->
+
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <h1>Detect DeepFakes with AI Precision</h1>
+            <p>Upload your image and let our advanced AI technology analyze it for signs of manipulation. Get instant results with detailed confidence scores and protect yourself from digital deception.</p>
+        </div>
+        
+        <div class="upload-section">
+            <div class="upload-box">
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                <div class="upload-area">
+                    <span>Drag & Drop or Click to Upload</span>
+                </div>
+                <button class="detect-btn">Analyze Image</button>
+            </div>
+        </div>
+
+        <div class="gif-space">
+            <div class="gif-container">
+                <!-- Replace the src with your GIF path -->
+                <img src="scanner.gif" alt="AI Analysis Animation">
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.querySelector('.upload-area');
+            const imageUpload = document.getElementById('imageUpload');
+
+            uploadArea.addEventListener('click', () => {
+                imageUpload.click();
+            });
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#ff0266';
+                uploadArea.style.transform = 'scale(1.02)';
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = '#03dac6';
+                uploadArea.style.transform = 'scale(1)';
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#03dac6';
+                uploadArea.style.transform = 'scale(1)';
+                
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    handleImage(file);
+                }
+            });
+
+            imageUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImage(file);
+                }
+            });
+
+            function handleImage(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadArea.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+    <div class="analysis-overlay">
+        <div class="analysis-content">
+            <div class="loader"></div>
+            <div class="analysis-text">Analyzing Image...</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <button class="see-results-btn">See Results</button>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="results-modal">
+        <button class="close-results">&times;</button>
+        <h2 class="results-heading">Analysis Results</h2>
+        <div class="results-grid">
+            <div class="metric-card">
+                <div class="metric-title">Accuracy</div>
+                <div class="metric-value">97.8%</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Precision</div>
+                <div class="metric-value">95.6%</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Recall</div>
+                <div class="metric-value">96.2%</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">F1 Score</div>
+                <div class="metric-value">95.9%</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add to your existing JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const detectBtn = document.querySelector('.detect-btn');
+            const analysisOverlay = document.querySelector('.analysis-overlay');
+            const seeResultsBtn = document.querySelector('.see-results-btn');
+            const resultsModal = document.querySelector('.results-modal');
+            const closeResultsBtn = document.querySelector('.close-results');
+
+            detectBtn.addEventListener('click', function() {
+                // Show analysis overlay
+                analysisOverlay.style.display = 'flex';
+                
+                // Simulate analysis completion after 3 seconds
+                setTimeout(() => {
+                    document.querySelector('.loader').style.display = 'none';
+                    document.querySelector('.analysis-text').textContent = 'Analysis Complete!';
+                    seeResultsBtn.style.display = 'block';
+                }, 3000);
+            });
+
+            seeResultsBtn.addEventListener('click', function() {
+                analysisOverlay.style.display = 'none';
+                resultsModal.style.display = 'block';
+            });
+
+            closeResultsBtn.addEventListener('click', function() {
+                resultsModal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === analysisOverlay) {
+                    analysisOverlay.style.display = 'none';
+                }
+                if (event.target === resultsModal) {
+                    resultsModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    
+
+<!-- 🔎 How It Works -->
+<section id="how-it-works" style="
+    text-align: center; 
+    padding: 60px 20px; 
+    background-color: #121212;
+">
+    <h2 style="font-size: 36px; margin-bottom: 30px; color: white;">How It Works</h2>
+    
+    <!-- Parent container for steps -->
+    <div class="steps" style="
+        display: flex;  /* Arrange boxes in a row */
+        justify-content: space-between;  /* Ensures equal spacing between boxes */
+        gap: 20px;  /* Adds space between the boxes */
+        max-width: 90%;  /* Ensures the section spans almost full width */
+        margin: auto;
+    ">
+        <!-- Step 1 -->
+        <div class="step" style="
+            flex: 1;  /* Ensures equal width for all boxes */
+            padding: 20px; 
+            background-color:#03dac6; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+        "
+        onmouseover="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 12px #03dac6';" 
+        onmouseout="this.style.backgroundColor='#000000'; this.style.color='#FFFFFF'; this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.1)';">
+            <h3 style="font-size: 22px; color: inherit;">1. Upload an Image</h3>
+            <p style="font-size: 16px; color: inherit;">Choose an image that you suspect might be a deepfake.</p>
+        </div>
+        
+        <!-- Step 2 (Middle box) -->
+        <div class="step" style="
+        flex: 1;  /* Ensures equal width for all boxes */
+        padding: 20px; 
+        background-color: #03dac6; 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+    "
+    onmouseover="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 12px #03dac6';" 
+    onmouseout="this.style.backgroundColor='#000000'; this.style.color='#FFFFFF'; this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.1)';">
+            <h3 style="font-size: 22px; color: inherit;">2. AI Analysis</h3>
+            <p style="font-size: 16px; color: inherit;">Our AI model scans the image for deepfake traces.</p>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="step" style="
+        flex: 1;  /* Ensures equal width for all boxes */
+        padding: 20px; 
+        background-color: #03dac6; 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+    "
+    onmouseover="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 12px #03dac6';" 
+    onmouseout="this.style.backgroundColor='#000000'; this.style.color='#FFFFFF'; this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.1)';">
+            <h3 style="font-size: 22px; color: inherit;">3. Get the Result</h3>
+            <p style="font-size: 16px; color: inherit;">We show a confidence score to help you decide if the image is real or fake.</p>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- ℹ️ About Section -->
+
+    <section id="about" class="about-section">
+        <div class="about-header">
+            <h2>About DeepShield</h2>
+            <p class="subtitle">Protecting Digital Truth Through AI Innovation</p>
+        </div>
+    
+        <div class="about-grid">
+            <div class="about-card mission">
+                <i class="fas fa-bullseye"></i>
+                <h3>Our Mission</h3>
+                <p>To combat digital misinformation by providing cutting-edge AI technology that helps users verify the authenticity of digital content.</p>
+            </div>
+    
+            <div class="about-card vision">
+                <i class="fas fa-eye"></i>
+                <h3>Our Vision</h3>
+                <p>A digital world where people can trust the content they see, backed by advanced AI verification tools.</p>
+            </div>
+    
+            <div class="about-card technology">
+                <i class="fas fa-microchip"></i>
+                <h3>Our Technology</h3>
+                <p>State-of-the-art deep learning models trained on millions of images to detect even the most sophisticated deepfakes.</p>
+            </div>
+    
+            <div class="about-card security">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Our Commitment</h3>
+                <p>Ensuring privacy and security while providing reliable detection services to individuals and organizations.</p>
+            </div>
+        </div>
+    
+        
+
+        <section id="features" class="features-section">
+            <div class="features-header">
+                <h2>Advanced Features</h2>
+                <p>Cutting-edge technology to detect digital manipulation</p>
+            </div>
+
+            <div class="image-slider-container">
+                <div class="slider-wrapper">
+                    <div class="slider">
+                        <div class="slide">
+                            <div class="comparison-container">
+                                <img src="Financial_Projection.png" alt="Original" class="comparison-image">
+                                <div class="comparison-separator">
+                                    <div class="separator-line"></div>
+                                    <div class="separator-handle">
+                                        <span class="handle-arrow">◀</span>
+                                        <span class="handle-arrow">▶</span>
+                                    </div>
+                                </div>
+                                <img src="flat-smartphone-smart-watch-monitoring-heart-rate_88138-875.avif" alt="Analyzed" class="comparison-overlay">
+                            </div>
+                            <div class="slide-info">
+                                <h3>Facial Manipulation Detection</h3>
+                                <p>Drag slider to see the detection overlay</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="comparison-container">
+                                <img src="/api/placeholder/800/400" alt="Original" class="comparison-image">
+                                <div class="comparison-separator">
+                                    <div class="separator-line"></div>
+                                    <div class="separator-handle">
+                                        <span class="handle-arrow">◀</span>
+                                        <span class="handle-arrow">▶</span>
+                                    </div>
+                                </div>
+                                <img src="/api/placeholder/800/400" alt="Analyzed" class="comparison-overlay">
+                            </div>
+                            <div class="slide-info">
+                                <h3>Deepfake Analysis</h3>
+                                <p>Advanced AI detection visualization</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="slider-nav prev">❮</button>
+                    <button class="slider-nav next">❯</button>
+                </div>
+            </div>
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Slider Navigation
+                    const slider = document.querySelector('.slider');
+                    const slides = document.querySelectorAll('.slide');
+                    const prevBtn = document.querySelector('.prev');
+                    const nextBtn = document.querySelector('.next');
+                    let currentSlide = 0;
+                
+                    function goToSlide(index) {
+                        currentSlide = index;
+                        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    }
+                
+                    prevBtn.addEventListener('click', () => {
+                        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                        goToSlide(currentSlide);
+                    });
+                
+                    nextBtn.addEventListener('click', () => {
+                        currentSlide = (currentSlide + 1) % slides.length;
+                        goToSlide(currentSlide);
+                    });
+                
+                    // Comparison Slider Functionality
+                    const comparisonContainers = document.querySelectorAll('.comparison-container');
+                    
+                    comparisonContainers.forEach(container => {
+                        const separator = container.querySelector('.comparison-separator');
+                        const overlay = container.querySelector('.comparison-overlay');
+                        
+                        function updateSlider(e) {
+                            const containerRect = container.getBoundingClientRect();
+                            const x = Math.max(0, Math.min(e.clientX - containerRect.left, containerRect.width));
+                            const percent = (x / containerRect.width) * 100;
+                            
+                            overlay.style.width = `${100 - percent}%`;
+                            separator.style.left = `${percent}%`;
+                        }
+                
+                        let isDragging = false;
+                
+                        separator.addEventListener('mousedown', () => {
+                            isDragging = true;
+                            document.addEventListener('mousemove', handleDrag);
+                            document.addEventListener('mouseup', stopDrag);
+                        });
+                
+                        function handleDrag(e) {
+                            if (isDragging) {
+                                updateSlider(e);
+                            }
+                        }
+                
+                        function stopDrag() {
+                            isDragging = false;
+                            document.removeEventListener('mousemove', handleDrag);
+                            document.removeEventListener('mouseup', stopDrag);
+                        }
+                    });
+                });
+                </script>
+        
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32">
+                            <path fill="#03dac6" d="M12 2l9 4v12l-9 4-9-4V6l9-4zm0 2.09L5 7.12v9.76l7 3.03 7-3.03V7.12l-7-3.03z"/>
+                            <circle fill="#03dac6" cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>AI Analysis</h3>
+                        <p>Advanced deep learning models with 99.8% accuracy</p>
+                    </div>
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-value">99.8%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">0.5s</span>
+                            <span class="stat-label">Process Time</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32">
+                            <path fill="#03dac6" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.08v4.92c0 4.34-2.99 8.37-7 9.62-4.01-1.25-7-5.28-7-9.62V6.26l7-3.08z"/>
+                            <path fill="#03dac6" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Multi-Layer Detection</h3>
+                        <p>Comprehensive analysis across multiple dimensions</p>
+                    </div>
+                    <div class="feature-tags">
+                        <span class="tag">Facial Analysis</span>
+                        <span class="tag">Pattern Detection</span>
+                        <span class="tag">Metadata Check</span>
+                    </div>
+                </div>
+        
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32">
+                            <path fill="#03dac6" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Detailed Reports</h3>
+                        <p>Get comprehensive insights about the analysis</p>
+                    </div>
+                    <div class="feature-meters">
+                        <div class="meter">
+                            <span class="meter-label">Confidence Score</span>
+                            <div class="meter-bar">
+                                <div class="meter-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="meter">
+                            <span class="meter-label">Detection Rate</span>
+                            <div class="meter-bar">
+                                <div class="meter-fill" style="width: 98%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32">
+                            <path fill="#03dac6" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Privacy First</h3>
+                        <p>Enterprise-grade security for your data</p>
+                    </div>
+                    <div class="feature-checklist">
+                        <div class="check-item">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="#03dac6" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            <span>End-to-end Encryption</span>
+                        </div>
+                        <div class="check-item">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="#03dac6" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            <span>GDPR Compliant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <script>
+            // Slider functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const slider = document.querySelector('.slider');
+                const slides = document.querySelectorAll('.slide');
+                const prevBtn = document.querySelector('.prev');
+                const nextBtn = document.querySelector('.next');
+                let currentSlide = 0;
+            
+                function goToSlide(index) {
+                    currentSlide = index;
+                    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                }
+            
+                prevBtn.addEventListener('click', () => {
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    goToSlide(currentSlide);
+                });
+            
+                nextBtn.addEventListener('click', () => {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    goToSlide(currentSlide);
+                });
+            
+                // Comparison slider functionality
+                const comparisonSliders = document.querySelectorAll('.comparison-slider');
+                
+                comparisonSliders.forEach(slider => {
+                    const handle = slider.querySelector('.slider-handle');
+                    const overlay = slider.querySelector('.slider-overlay');
+                    
+                    function updateSlider(e) {
+                        const sliderRect = slider.getBoundingClientRect();
+                        const x = Math.max(0, Math.min(e.clientX - sliderRect.left, sliderRect.width));
+                        const percent = (x / sliderRect.width) * 100;
+                        
+                        overlay.style.width = `${100 - percent}%`;
+                        handle.style.left = `${percent}%`;
+                    }
+            
+                    handle.addEventListener('mousedown', () => {
+                        document.addEventListener('mousemove', updateSlider);
+                        document.addEventListener('mouseup', () => {
+                            document.removeEventListener('mousemove', updateSlider);
+                        });
+                    });
+                });
+            });
+            </script>
+  
+
+    <!-- 🔒 Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signInForm">
+                <input type="text" id="signInName" placeholder="Enter your name" required>
+                <input type="email" id="signInEmail" placeholder="Enter your email" required>
+                <input type="password" id="signInPassword" placeholder="Enter your password" required>
+                <div id="signInError" class="form-error"></div>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                <div id="loginError" class="form-error"></div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+
+ 
+    <div style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 80px;
+        background-color: #121212;
+        color: white;
+        padding: 60px 20px;
+        border-radius: 10px;
+        flex-wrap: wrap;
+    ">
+        <div style="text-align: center; width: 200px;">
+            <i class="fas fa-users" style="font-size: 50px; margin-bottom: 10px;"></i>
+            <h2 class="counter" data-target="1000" style="font-size: 45px; font-weight: bold; margin: 10px 0;"></h2>
+            <p style="font-size: 18px; opacity: 0.8;">Happy Clients</p>
+        </div>
+        <div style="text-align: center; width: 200px;">
+            <i class="fas fa-check" style="font-size: 50px; margin-bottom: 10px;"></i>
+            <h2 class="counter" data-target="15000" style="font-size: 45px; font-weight: bold; margin: 10px 0;"></h2>
+            <p style="font-size: 18px; opacity: 0.8;">Deepfakes Detected</p>
+        </div>
+        <div style="text-align: center; width: 200px;">
+            <i class="fas fa-user-cog" style="font-size: 50px; margin-bottom: 10px;"></i>
+            <h2 class="counter" data-target="10" style="font-size: 45px; font-weight: bold; margin: 10px 0;"></h2>
+            <p style="font-size: 18px; opacity: 0.8;">Dedicated Staff</p>
+        </div>
+        <div style="text-align: center; width: 200px;">
+            <i class="fas fa-award" style="font-size: 50px; margin-bottom: 10px;"></i>
+            <h2 class="counter" data-target="8" style="font-size: 45px; font-weight: bold; margin: 10px 0;"></h2>
+            <p style="font-size: 18px; opacity: 0.8;">Businesses</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const backdrop = document.createElement('div');
+            backdrop.className = 'modal-backdrop';
+            document.body.appendChild(backdrop);
+            // Get modal elements
+            const signInModal = document.getElementById('signInModal');
+            const loginModal = document.getElementById('loginModal');
+            const signInBtn = document.getElementById('signInBtn');
+            const loginBtn = document.getElementById('loginBtn');
+            const closeButtons = document.getElementsByClassName('close');
+
+            function openModal(modal) {
+                backdrop.style.display = 'block';
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        
+            // Function to close modal and remove blur
+            function closeModal() {
+                backdrop.style.display = 'none';
+                signInModal.style.display = 'none';
+                loginModal.style.display = 'none';
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        
+        
+            // Sign In button click handler
+            signInBtn.addEventListener('click', () => openModal(signInModal));
+        
+            // Login button click handler
+            loginBtn.addEventListener('click', () => openModal(loginModal));
+
+        
+            // Close button handlers
+            Array.from(closeButtons).forEach(button => {
+                button.addEventListener('click', closeModal);
+            });
+
+            backdrop.addEventListener('click', closeModal);
+
+
+            
+        
+            // Click outside modal to close
+            window.addEventListener('click', function(event) {
+                if (event.target === signInModal || event.target === loginModal) {
+                    signInModal.style.display = 'none';
+                    loginModal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                }
+            });
+        
+            // Form submission handlers
+            const signInForm = document.getElementById('signInForm');
+            const loginForm = document.getElementById('loginForm');
+        
+            signInForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('signInName').value;
+                const email = document.getElementById('signInEmail').value;
+                const password = document.getElementById('signInPassword').value;
+        
+                // Add your sign in validation logic here
+                if (validateForm(name, email, password)) {
+                    // Handle successful sign in
+                    console.log('Sign in successful');
+                    signInModal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    signInForm.reset();
+                }
+            });
+        
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+        
+                // Add your login validation logic here
+                if (validateLoginForm(email, password)) {
+                    // Handle successful login
+                    console.log('Login successful');
+                    loginModal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    loginForm.reset();
+                }
+            });
+        
+            function validateForm(name, email, password) {
+                // Basic validation
+                if (name.length < 2) {
+                    showError('signInError', 'Name must be at least 2 characters long');
+                    return false;
+                }
+                if (!email.includes('@')) {
+                    showError('signInError', 'Please enter a valid email address');
+                    return false;
+                }
+                if (password.length < 6) {
+                    showError('signInError', 'Password must be at least 6 characters long');
+                    return false;
+                }
+                return true;
+            }
+        
+            function validateLoginForm(email, password) {
+                if (!email.includes('@')) {
+                    showError('loginError', 'Please enter a valid email address');
+                    return false;
+                }
+                if (password.length < 6) {
+                    showError('loginError', 'Password must be at least 6 characters long');
+                    return false;
+                }
+                return true;
+            }
+        
+            function showError(elementId, message) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                setTimeout(() => {
+                    errorElement.style.display = 'none';
+                }, 3000);
+            }
+        });
+        </script>
+
+    <!-- <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script> -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const counters = document.querySelectorAll(".counter");
+    
+            const startCounting = () => {
+                counters.forEach(counter => {
+                    let target = +counter.getAttribute("data-target");
+                    let count = 0;
+                    let speed = target / 100;
+    
+                    let updateCounter = () => {
+                        if (count < target) {
+                            count += speed;
+                            counter.innerText = Math.ceil(count);
+                            setTimeout(updateCounter, 20);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+    
+                    updateCounter();
+                });
+            };
+    
+            // Run counting effect on page load
+            startCounting();
+    
+            // Observer to restart animation when re-entering viewport
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startCounting();
+                        observer.disconnect();
+                    }
+                });
+            });
+    
+            observer.observe(document.querySelector("div"));
+        });
+    </script>
+    
+    
+   
+    
+    
+    
+    <section id="contact" style="background: #181818; padding: 50px; border-radius: 10px; margin: 40px auto; width: 50%; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); text-align: left;">
+        <h2 style="color: #03dac6; margin-bottom: 20px; font-size: 24px;">Contact Us</h2>
+        <form id="contactForm" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+            <label for="name" style="color: #e0e0e0; text-align: left;">Name:</label>
+            <input type="text" id="name" name="name" required 
+                style="width: 100%; padding: 12px; background: #252525; border: 2px solid #03dac6; color: #e0e0e0; border-radius: 5px; font-size: 16px;">
+            
+            <label for="email" style="color: #e0e0e0; text-align: left;">Email:</label>
+            <input type="email" id="email" name="email" required 
+                style="width: 100%; padding: 12px; background: #252525; border: 2px solid #03dac6; color: #e0e0e0; border-radius: 5px; font-size: 16px;">
+            
+            <label for="message" style="color: #e0e0e0; text-align: left;">Message:</label>
+            <textarea id="message" name="message" rows="4" required 
+                style="width: 100%; padding: 12px; background: #252525; border: 2px solid #03dac6; color: #e0e0e0; border-radius: 5px; font-size: 16px; resize: none;"></textarea>
+    
+            <button type="submit" 
+                style="background: #ff0266; color: white; border: none; padding: 12px; font-size: 18px; border-radius: 6px; cursor: pointer; transition: 0.3s; text-align: center;"
+                onmouseover="this.style.background='#d40052'" 
+                onmouseout="this.style.background='#ff0266'">
+                Send Message
+            </button>
+        </form>
+    </section>
+    
+
+    <footer>
+        <p>&copy; 2025 DeepFake Detector | Built for Awareness</p>
+        <ul class="social-links">
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">GitHub</a></li>
+        </ul>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
