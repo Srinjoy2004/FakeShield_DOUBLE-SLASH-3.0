@@ -1248,3 +1248,20 @@ header {
     margin-top: 10px;
     border-radius: 10px;
 }
+
+.metric-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.results-grid {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically if needed */
+    text-align: center;
+}
+
