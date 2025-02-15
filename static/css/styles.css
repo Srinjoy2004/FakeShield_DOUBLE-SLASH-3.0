@@ -403,61 +403,53 @@ nav {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #1e1e1e;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 30px rgba(3, 218, 198, 0.2);
-    z-index: 1001;
-    width: 90%;
-    max-width: 600px;
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 10px;
+    z-index: 1000;
+    min-width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 20px;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .metric-card {
     background: #252525;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 8px;
     text-align: center;
-    transition: all 0.3s ease;
-}
-
-.metric-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(3, 218, 198, 0.2);
 }
 
 .metric-title {
     color: #03dac6;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
 }
 
 .metric-value {
-    font-size: 24px;
+    color: white;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #fff;
 }
 
 .close-results {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    right: 1rem;
+    top: 1rem;
     background: none;
     border: none;
     color: #fff;
-    font-size: 24px;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: color 0.3s ease;
 }
 
 .close-results:hover {
-    color: #ff0266;
+    color: #03dac6;
 }
 
 @keyframes spin {
@@ -1264,4 +1256,3 @@ header {
     align-items: center; /* Centers vertically if needed */
     text-align: center;
 }
-

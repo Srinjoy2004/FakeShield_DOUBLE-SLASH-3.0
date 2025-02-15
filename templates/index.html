@@ -44,7 +44,7 @@
                 <div class="upload-area" onclick="document.getElementById('imageUpload').click();">
                     <span>Drag & Drop or Click to Upload</span>
                 </div>
-                <button class="detect-btn" onclick="uploadImage()">Analyze Image</button>
+                <button class="detect-btn" onclick="analyzeImage()">Analyze Image</button>
             </div>
         </div>
         
@@ -150,6 +150,16 @@
         <button class="close-results">&times;</button>
         <h2 class="results-heading">Analysis Results</h2>
         <div class="results-grid">
+            <div class="metric-card">
+                <div class="metric-title">Result</div>
+                <div class="metric-value" id="resultValue">Analyzing...</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Confidence</div>
+                <div class="metric-value" id="confidenceValue">-</div>
+            </div>
+        </div>
+    </div>
             <!-- <div class="metric-card">
                 <div class="metric-title">Accuracy</div>
                 <div class="metric-value">97.8%</div>
@@ -162,54 +172,71 @@
                 <div class="metric-title">Recall</div>
                 <div class="metric-value">96.2%</div>
             </div> -->
-            <div class="metric-card">
-                <div class="metric-title">Result</div>
-                <div class="metric-value">Real Image</div>
-            </div>
+            
         </div>
     </div>
 
     <script>
-        // Add to your existing JavaScript
         document.addEventListener('DOMContentLoaded', function() {
             const detectBtn = document.querySelector('.detect-btn');
             const analysisOverlay = document.querySelector('.analysis-overlay');
-            const seeResultsBtn = document.querySelector('.see-results-btn');
             const resultsModal = document.querySelector('.results-modal');
             const closeResultsBtn = document.querySelector('.close-results');
-
-            detectBtn.addEventListener('click', function() {
-                // Show analysis overlay
+            const resultValue = document.getElementById('resultValue');
+            const confidenceValue = document.getElementById('confidenceValue');
+        
+            function analyzeImage() {
+                let fileInput = document.getElementById("imageUpload").files[0];
+        
+                if (!fileInput) {
+                    alert("Please select an image first!");
+                    return;
+                }
+        
+                
                 analysisOverlay.style.display = 'flex';
                 
-                // Simulate analysis completion after 3 seconds
-                setTimeout(() => {
-                    document.querySelector('.loader').style.display = 'none';
-                    document.querySelector('.analysis-text').textContent = 'Analysis Complete!';
-                    seeResultsBtn.style.display = 'block';
-                }, 3000);
-            });
-
-            seeResultsBtn.addEventListener('click', function() {
-                analysisOverlay.style.display = 'none';
-                resultsModal.style.display = 'block';
-            });
-
+                let formData = new FormData();
+                formData.append("image", fileInput);
+        
+                fetch("/predict", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    
+                    let resultText = data.prediction == 1 ? "Fake Image 🛑" : "Real Image ✅";
+                    resultValue.innerText = resultText;
+                    confidenceValue.innerText = `${(data.confidence * 100).toFixed(1)}%`;
+                    
+                    
+                    analysisOverlay.style.display = 'none';
+                    resultsModal.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    analysisOverlay.style.display = 'none';
+                    alert("An error occurred during analysis. Please try again.");
+                });
+            }
+        
+            
             closeResultsBtn.addEventListener('click', function() {
                 resultsModal.style.display = 'none';
             });
-
-            // Close modal when clicking outside
+        
+            
             window.addEventListener('click', function(event) {
-                if (event.target === analysisOverlay) {
-                    analysisOverlay.style.display = 'none';
-                }
                 if (event.target === resultsModal) {
                     resultsModal.style.display = 'none';
                 }
             });
+        
+           
+            window.analyzeImage = analyzeImage;
         });
-    </script>
+        </script>
 
     
 
