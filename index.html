@@ -19,7 +19,7 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="auth-buttons">
-            <button id="signInBtn">Sign In</button>
+            <button id="signInBtn">Sign Up</button>
             <button id="loginBtn">Login</button>
         </div>
     </nav>
@@ -551,13 +551,13 @@
     <div id="signInModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Sign In</h2>
+            <h2>Sign Up</h2>
             <form id="signInForm">
                 <input type="text" id="signInName" placeholder="Enter your name" required>
                 <input type="email" id="signInEmail" placeholder="Enter your email" required>
                 <input type="password" id="signInPassword" placeholder="Enter your password" required>
                 <div id="signInError" class="form-error"></div>
-                <button type="submit">Sign In</button>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
     </div>
@@ -678,7 +678,7 @@
                 // Add your sign in validation logic here
                 if (validateForm(name, email, password)) {
                     // Handle successful sign in
-                    console.log('Sign in successful');
+                    console.log('Sign up successful');
                     signInModal.style.display = 'none';
                     document.body.classList.remove('modal-open');
                     signInForm.reset();
