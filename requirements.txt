@@ -1,0 +1,6 @@
+Flask
+flask-cors
+torch
+torchvision
+p
+Pillow
