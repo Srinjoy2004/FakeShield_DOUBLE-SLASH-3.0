@@ -23,14 +23,17 @@ FakeShield is an AI-powered image verification platform that detects manipulated
 
 | Metric        | Value  |
 |--------------|--------|
-| **Accuracy**  | XX.XX% |
-| **Loss**      | XX.XX  |
-| **Precision** | XX.XX% |
-| **Recall**    | XX.XX% |
-| **F1 Score**  | XX.XX% |
+| **Accuracy**  | 91% |
+| **Loss**      | 3% |
+| **Precision** | 96% (for fake image)|
+| **Recall**    | 85% |
+| **F1 Score**  | 91% |
 
 📌 **Confusion Matrix:**
 ![Confusion Matrix](./confusion.png)
+
+📌 **Workflow:**
+![Confusion Matrix](./workFlow.jpeg)
 
 ---
 ## ⚡ Installation & Usage
