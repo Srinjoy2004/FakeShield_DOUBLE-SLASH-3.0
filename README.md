@@ -33,7 +33,32 @@ FakeShield is an AI-powered image verification platform that detects manipulated
 ![Confusion Matrix](./confusion.png)
 
 📌 **Workflow:**
-![Confusion Matrix](./workFlow.jpeg)
+![Workflow](./workFlow.jpeg)
+
+---
+## 🏆 Mission & Vision
+**Mission:** To create a reliable and scalable AI-powered fake image detection platform that enhances digital trust and combats misinformation across industries.
+
+**Vision:** To be the global leader in AI-driven authenticity verification, ensuring transparency and security in digital media.
+
+---
+## 🔍 SWOT Analysis
+### **Strengths:**
+- High accuracy in fake image detection.
+- Scalable and adaptable technology.
+- Can be integrated into multiple industries.
+
+### **Weaknesses:**
+- Dependency on AI model improvements.
+- Potential false positives/negatives.
+
+### **Opportunities:**
+- Growing demand for misinformation detection.
+- Potential for expansion into video deepfake detection.
+
+### **Threats:**
+- Advancements in deepfake technology making detection harder.
+- Privacy concerns related to AI-based verification.
 
 ---
 ## ⚡ Installation & Usage
