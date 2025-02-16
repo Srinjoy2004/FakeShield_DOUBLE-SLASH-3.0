@@ -1,6 +1,6 @@
 # FakeShield - AI-Powered Fake Image Detection
 
-![FakeShield Banner](https://your-image-link.com)
+![FakeShield Banner](./banner.png)
 
 ## 🚀 About the Project
 FakeShield is an AI-powered image verification platform that detects manipulated or deepfake images in real-time. It helps combat misinformation, fraud, and digital deception in various industries like social media, journalism, law enforcement, and finance.
@@ -30,7 +30,7 @@ FakeShield is an AI-powered image verification platform that detects manipulated
 | **F1 Score**  | XX.XX% |
 
 📌 **Confusion Matrix:**
-![Confusion Matrix](https://your-image-link.com)
+![Confusion Matrix](./confusion.png)
 
 ---
 ## ⚡ Installation & Usage
